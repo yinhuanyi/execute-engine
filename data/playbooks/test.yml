@@ -1,0 +1,12 @@
+- hosts: target_hosts
+  become: yes
+  gather_facts: false
+  tasks:
+  - name: create dir
+    shell: mkdir /root/hello
+
+  - name: create file in dir
+    shell: touch /root/hello/hello.txt
+
+  - name: 安装apache2
+    shell: apt install -y apache2

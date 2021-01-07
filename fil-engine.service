@@ -1,0 +1,17 @@
+[Unit]
+Description=fil-engile
+After=network.target
+
+[Service]
+Type=forking
+PIDFile=/home/ipfsmain/fil-execute-engine/engine.pid
+Environment="CURRENT_DIR=/home/ipfsmain/fil-execute-engine"
+User=root
+Group=root
+ExecStart=/home/ipfsmain/fil-execute-engine/control.sh start
+ExecReload=/home/ipfsmain/fil-execute-engine/control.sh restart
+ExecStop=/home/ipfsmain/fil-execute-engine/control.sh stop
+RestartSec=100s
+
+[Install]
+WantedBy=multi-user.target
