@@ -44,7 +44,7 @@
 
 #### 二：部署安装
 
-> `(一) 部署execute-engine`
+> `(一) Ubuntu部署execute-engine(目前项目只适合在Ubuntu上部署，后续将支持在Centos上部署)`
 
 - 创建项目目录
 
@@ -113,6 +113,14 @@ EXEC = 1
 
 # Distribute的IP地址
 DISTRIBUTE_IP = IP
+```
+
+- 将Systemd的unit file脚本拷贝到/lib/systemd/system目录下，让unit file重新生效
+
+```
+cd /app
+cp -f execute-engine.service /lib/systemd/system/
+systemctl daemon-reload
 ```
 
 > `(二) 项目部署`
