@@ -1,0 +1,17 @@
+[Unit]
+Description=execute-engine
+After=network.target
+
+[Service]
+Type=forking
+PIDFile=/app/execute-engine/engine.pid
+Environment="CURRENT_DIR=/app/execute-engine"
+User=root
+Group=root
+ExecStart=/app/execute-engine/control.sh start
+ExecReload=/app/execute-engine/control.sh restart
+ExecStop=/app/execute-engine/control.sh stop
+RestartSec=100s
+
+[Install]
+WantedBy=multi-user.target

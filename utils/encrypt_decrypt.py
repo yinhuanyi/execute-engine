@@ -47,11 +47,14 @@ def decrypt(data: str):
 
 
 if __name__ == '__main__':
+    # 原始密码
     raw_data = "zHAs3erVUnD0DkJz"
     # raw_data = '7ozysja49fn5k81#5w_)pn9e6%)uma(&*rz_zv^oye5^lvp4^1'
     print(raw_data)
     cipher_data = encrypt(raw_data)
+    # 加密后的密码
     print(cipher_data)
     # cipher_data = '095393c23e7524b343012d0d128943ecd78a8e2c6f82'
     data = decrypt(cipher_data)
+    # 解密后的密码
     print(data)

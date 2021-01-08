@@ -3,7 +3,7 @@
 @Author: Robby
 @Module name:
 @Create date: 2020-11-17
-@Function: xb-cl01-se-063-001 做测试
+@Function: 
 """
 import sys
 import os
@@ -14,7 +14,6 @@ from utils.const_file import PID_FILE, ENGILE_LOG
 from utils.global_logger import getlogger
 from tasks import start_engine
 
-# 让守护进程正确日志和错误日志输出到同一个文件中
 
 engile_logger = getlogger(logger_name='engine', info_file_path=ENGILE_LOG, error_file_path=ENGILE_LOG)
 
@@ -37,7 +36,6 @@ if sys.argv[1] == 'start':
 elif sys.argv[1] == 'stop':
     if os.path.exists(PID_FILE):
         try:
-            # 获取全局Event事件，设置为True，让线程退出 0x7fa899b52e80
             with open(PID_FILE) as f:
                 os.kill(int(f.read()), signal.SIGKILL)
                 os.remove(PID_FILE)
