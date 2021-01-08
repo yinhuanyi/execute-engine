@@ -42,7 +42,7 @@
 	- ③：执行引擎的执行能力会由Execute-Engine部署的数量线性提高
 
 
-#### 二：部署安装
+#### 二：部署
 
 > `(一) Ubuntu部署execute-engine(目前项目只适合在Ubuntu上部署，后续将支持在Centos上部署)`
 
@@ -126,7 +126,7 @@ systemctl daemon-reload
 - 启动、停止、查看execute-engine
 
 ```
-# 启动
+# 启动，第一次启动会需要一些时间，因为会安装部分依赖
 systemctl start execute-engine
 
 # 停止
@@ -134,19 +134,4 @@ systemctl stop execute-engine
 
 # 查看状态
 systemctl status execute-engine
-```
-
-> `(二) 项目部署`
-
-- 部署(确保主机上已经安装了docker环境)
-
-```
-# 1：切换到项目目录
-cd fil-distribute
-
-# 2：修改配置文件
-vi conf/server.conf
-
-# 3：修改私钥，用于从git上来取代码
-vi  id_rsa
 ```
