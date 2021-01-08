@@ -57,21 +57,22 @@ mkdir /app
 ```
 cd /app
 git clone https://github.com/yinhuanyi/execute-engine.git
+cd execute-engine
 ```
 
-- 修改配置文件
+- 修改 conf/server.conf 配置文件
 
 ```
 # Kafka集群消费指令集
 [Kafka_Cluster]
 # KAFKA地址和端口或KAFKA集群地址和端口，例如192.168.100.11:9092
 BOOTSTRAP_SERVERS = KAFKA_IP:KAFKA_PORT
-# 消费者组ID
+# 消费者组ID，如果部署了多台execute-engine，GROUP_ID应该保持一致
 GROUP_ID = adhoc
 # 始终消费Kafka中的最新数据
 AUTO_OFFSET_RESET = latest
-# Kafka创建的topic名称
-TOPIC = adhoc2
+# Kafka创建的topic名称，与distribute中的TOPIC_NAME一致
+TOPIC = TOPIC_NAME
 
 # Zabbix监控exec-engine 发送心跳包
 [Zabbix]
@@ -92,7 +93,7 @@ PORT = 3306
 DATABASE = execute_engine
 # 数据库用户
 USER = root
-# 数据库密码(加密后的密码：加密使用fil-execute-engine/utils/encrypt_decrypt.py脚本对密码进行加密和解密)
+# 数据库密码(加密后的密码：加密使用execute-engine/utils/encrypt_decrypt.py脚本对密码进行加密和解密)
 PASSWORD = 630898019a777c984645f0b01d3fe3d4ee2bacdc1aec34995218ff8823978401
 
 [Ansible]
@@ -111,9 +112,8 @@ ZABBIX = 10
 EXEC = 1
 
 # Distribute的IP地址
-DISTRIBUTE_IP = 10.102.0.2
+DISTRIBUTE_IP = IP
 ```
-
 
 > `(二) 项目部署`
 
