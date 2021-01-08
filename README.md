@@ -123,6 +123,19 @@ cp -f execute-engine.service /lib/systemd/system/
 systemctl daemon-reload
 ```
 
+- 启动、停止、查看execute-engine
+
+```
+# 启动
+systemctl start execute-engine
+
+# 停止
+systemctl stop execute-engine
+
+# 查看状态
+systemctl status execute-engine
+```
+
 > `(二) 项目部署`
 
 - 部署(确保主机上已经安装了docker环境)
