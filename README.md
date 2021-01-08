@@ -46,6 +46,8 @@
 
 > `(一) Ubuntu部署execute-engine(目前项目只适合在Ubuntu上部署，后续将支持在Centos上部署)`
 
+- Execute-Engine必须在Distribute后部署，才能挂载NFS网络文件系统共享的目录
+
 - 创建项目目录
 
 ```
@@ -63,7 +65,7 @@ cd execute-engine
 - 修改 conf/server.conf 配置文件
 
 ```
-# Kafka集群消费指令集
+# Kafka集群
 [Kafka_Cluster]
 # KAFKA地址和端口或KAFKA集群地址和端口，例如192.168.100.11:9092
 BOOTSTRAP_SERVERS = KAFKA_IP:KAFKA_PORT
@@ -83,7 +85,7 @@ ZABBIX_PORT = 10051
 # 自定义trapper监控项
 ITEM = exec.engine.ping
 
-# 执行结果存储
+# 执行结果存储, Execute-engine和Distribute数据库是同一个数据库
 [Fil_EXEC_MySQL]
 # MySQL地址
 IP = MySQL_IP
@@ -94,7 +96,7 @@ DATABASE = execute_engine
 # 数据库用户
 USER = root
 # 数据库密码(加密后的密码：加密使用execute-engine/utils/encrypt_decrypt.py脚本对密码进行加密和解密)
-PASSWORD = 630898019a777c984645f0b01d3fe3d4ee2bacdc1aec34995218ff8823978401
+PASSWORD = MySQL_PASSWORD
 
 [Ansible]
 # 执行任务时，ssh连接用户
