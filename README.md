@@ -37,23 +37,83 @@
 
 	- ①：引入任务Unit子单元，在Distribute中将成千上万的IP切割为多个小任务，避免了大批量主机执行任务卡死的情况
 
-
-	- ②：给每个任务添加超时时间，在规定的超时时间内，没有任务结果返回，程序将会立马终止任务，任务执行结果会记录到数据库中，从而可以非常方便的找出是哪些主机有问题，无法顺利执行任务。
+	- ②：给每个任务添加超时时间，在规定的超时时间内，没有任务结果返回，程序将会立马终止任务，任务执行结果会记录到数据库中，从而可以非常方便的找出是哪些主机有问题，无法顺利执行任务
 
 	- ③：执行引擎的执行能力会由Execute-Engine部署的数量线性提高
 
 
 #### 二：部署安装
 
-> `(一) 克隆项目`
+> `(一) 部署execute-engine`
+
+- 创建项目目录
 
 ```
-# 拉取distribute
-git clone https://github.com/yinhuanyi/distribute.git
+mkdir /app
+```
 
-# 拉取Execute-Engine
+- 拉取项目
+
+```
+cd /app
 git clone https://github.com/yinhuanyi/execute-engine.git
 ```
+
+- 修改配置文件
+
+```
+# Kafka集群消费指令集
+[Kafka_Cluster]
+# KAFKA地址和端口或KAFKA集群地址和端口，例如192.168.100.11:9092
+BOOTSTRAP_SERVERS = KAFKA_IP:KAFKA_PORT
+# 消费者组ID
+GROUP_ID = adhoc
+# 始终消费Kafka中的最新数据
+AUTO_OFFSET_RESET = latest
+# Kafka创建的topic名称
+TOPIC = adhoc2
+
+# Zabbix监控exec-engine 发送心跳包
+[Zabbix]
+# zabbix的server端或proxy端IP
+IP = ZABBIX_SERVER_IP
+# Zabbix端口
+ZABBIX_PORT = 10051
+# 自定义trapper监控项
+ITEM = exec.engine.ping
+
+# 执行结果存储
+[Fil_EXEC_MySQL]
+# MySQL地址
+IP = MySQL_IP
+# MySQL端口
+PORT = 3306
+# 数据库名称
+DATABASE = execute_engine
+# 数据库用户
+USER = root
+# 数据库密码(加密后的密码：加密使用fil-execute-engine/utils/encrypt_decrypt.py脚本对密码进行加密和解密)
+PASSWORD = 630898019a777c984645f0b01d3fe3d4ee2bacdc1aec34995218ff8823978401
+
+[Ansible]
+# 执行任务时，ssh连接用户
+SSH_USER = admin
+# 执行任务时，ssh连接用户的密码
+SSH_PASSWORD = admin
+# 执行任务时，ssh连接用户的sudo密码
+SSH_SUDO_PASSWORD = admin
+
+# 进程执行等待时间
+[Data_Send]
+# 心跳信息上报时间间隔
+ZABBIX = 10
+# 消费者消费的时间间隔
+EXEC = 1
+
+# Distribute的IP地址
+DISTRIBUTE_IP = 10.102.0.2
+```
+
 
 > `(二) 项目部署`
 
