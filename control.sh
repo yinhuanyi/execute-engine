@@ -1,6 +1,6 @@
 #!/bin/bash
 
-TEST_DIR=/home/ipfsmain/fil-execute-engine
+TEST_DIR=/app/fil-execute-engine
 
 if  [ $# -lt 1 ];then
     echo "Please Input A Argument"
@@ -21,10 +21,10 @@ function init_env(){
     apt install -y python3-pip python3-dev nfs-common
     pip3 install -r $REQUEIRMENTS
     # 挂载nfs, IP是nfs的地址
-    echo "$CURRENT_DIR" >> $TEST_DIR/test.log
-    NFS_IP=`awk -F " = " '/NFS/{print $2}' $CURRENT_DIR/conf/server.conf`
-    echo "$NFS_IP" >> $TEST_DIR/test.log
-    mount -t nfs $NFS_IP:/app/fil-distribute/data/files /mnt
+    echo "$CURRENT_DIR" >> $TEST_DIR/dir.log
+    DISTRIBUTE_IP=`awk -F " = " '/DISTRIBUTE/{print $2}' $CURRENT_DIR/conf/server.conf`
+    echo "$DISTRIBUTE_IP" >> $TEST_DIR/dir.log
+    mount -t nfs $DISTRIBUTE_IP:/app/fil-distribute/data/files /mnt
 }
 
 function clean_env() {
